@@ -46,3 +46,5 @@ out
 build
 .gradle
 .settings
+.project
+.classpath
