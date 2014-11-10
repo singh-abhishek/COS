@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ideas.domain.EmployeeRepositoryTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2014-11-10T17:06:56" hostname="didnaisina6" time="0.024">
+  <properties/>
+  <testcase name="CompanyHolidayForCurrentYearMarkedSuccessfully" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.016"/>
+  <testcase name="RepositoryCannotWorkWithoutAConnection" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.0"/>
+  <testcase name="RepositoryNotContainingEmployeeReturnsFalse" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.003"/>
+  <testcase name="RepositoryStoresEmployeeDetails" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.001"/>
+  <testcase name="CompanyHolidayRemovedSuccessfully" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.0"/>
+  <testcase name="checkForExistingUser" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.001"/>
+  <testcase name="checkForFirstTimeUser" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.0"/>
+  <testcase name="CompanyHolidaysForOnlyCurrentYearCanBeAdded" classname="com.ideas.domain.EmployeeRepositoryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

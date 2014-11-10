@@ -1,0 +1,50 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'war'
+
+defaultTasks 'clean',  'build'
+
+project.ext{
+
+	//libs
+	slf4j = 'org.slf4j:slf4j-api:1.7.5'
+	servlet = 'javax.servlet:javax.servlet-api:3.1.0'
+	googleMaps = 'com.google.maps:google-maps-services:0.1.4'
+	dbcp = 'commons-dbcp:commons-dbcp:1.4'
+	mail = 'javax.mail:mail:1.4.3'
+	json = 'org.json:json:20140107'
+	waffle = 'com.github.dblock.waffle:waffle-jna:1.6'
+	poi = 'org.apache.poi:poi:3.10-FINAL'
+	jetty = 'org.eclipse.jetty:jetty-servlet-tester:7.0.0.M2'
+	poiooxml = 'org.apache.poi:poi-ooxml:3.10.1'
+	com4j = 'org.jvnet.com4j:com4j:20110320'
+	com4jado20 = 'org.jvnet.com4j.typelibs:ado20:1.0'
+	activeDirectory = 'org.jvnet.com4j.typelibs:active-directory:1.0'
+	jsonassert = 'org.skyscreamer:jsonassert:1.2.3'
+	hsqldb = 'hsqldb:hsqldb:1.8.0.10'
+	mysql = 'mysql:mysql-connector-java:5.1.33'
+	jstl = 'jstl:jstl:1.2'
+	itext = 'com.itextpdf:itextpdf:5.5.3'
+
+
+
+	//test-libs
+	junit = 'junit:junit:4.11'
+	spock='org.spockframework:spock-core:0.7-groovy-2.0'
+}
+
+repositories { mavenCentral() }
+
+
+dependencies {
+
+	compile (project.ext.slf4j, project.ext.servlet, project.ext.googleMaps,
+			project.ext.dbcp, project.ext.mail, project.ext.json, project.ext.waffle, 
+			project.ext.poi,	project.ext.jetty, project.ext.poiooxml, project.ext.com4j, 
+			project.ext.com4jado20, project.ext.activeDirectory, project.ext.jsonassert,
+			project.ext.hsqldb, project.ext.mysql, project.ext.jstl, project.ext.itext)
+
+	testCompile (project.ext.junit)
+}
+
