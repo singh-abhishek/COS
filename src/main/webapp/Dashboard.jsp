@@ -237,7 +237,7 @@
 </style>
 </head>
 <body>
-<div class="btn-group" style="position:relative;right:-340px;top:-10px;
+<div class="btn-group" style="position:relative;right:-540px;top:-10px;
             border-color:blue;">
   <button type="button" class="btn btn-link dropdown-toggle"  data-toggle="dropdown">
     ${employeeDetails.name} <span class="caret"></span>
