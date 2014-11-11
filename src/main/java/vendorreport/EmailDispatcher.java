@@ -17,22 +17,16 @@ public class EmailDispatcher extends TimerTask {
 		String body = "Welcome to JavaMail!";
 
 		try {
-			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8181/COS/routeOptimize").openConnection();
+			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8080/COS/routeOptimize").openConnection();
 			con.setRequestMethod("GET");
 			con.connect();
 			con.getResponseCode();
 			new Email().sendEmail(from, pass, to, subject, body);
-			System.out.println("Email Sent Succesfully...");
+			//System.out.println("Email Sent Succesfully...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void main(String[] args) {
-		try {
-			new EmailDispatcher().run();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 }

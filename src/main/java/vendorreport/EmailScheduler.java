@@ -23,12 +23,12 @@ public class EmailScheduler {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date pm4 = new Date(cal.getTimeInMillis());
-		System.out.println("Will send morning roster i: "
-				+ (millisInADay + am11.getTime() - date.getTime())
-				% millisInADay / 60000 + "mins");
-		System.out.println("Will send evening roster i: "
-				+ (millisInADay + pm4.getTime() - date.getTime())
-				% millisInADay / 60000 + "mins");
+//		System.out.println("Will send morning roster i: "
+//				+ (millisInADay + am11.getTime() - date.getTime())
+//				% millisInADay / 60000 + "mins");
+//		System.out.println("Will send evening roster i: "
+//				+ (millisInADay + pm4.getTime() - date.getTime())
+//				% millisInADay / 60000 + "mins");
 		timer.scheduleAtFixedRate(
 				new EmailDispatcher(),
 				(millisInADay + am11.getTime() - date.getTime()) % millisInADay,
