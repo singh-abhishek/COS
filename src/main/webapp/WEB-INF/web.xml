@@ -10,7 +10,7 @@
 	</context-param>
 	<context-param>
 		<param-name>url</param-name>
-		<param-value>jdbc:mysql://didnsaeina6:3306/cabservice?autoReconnect=true</param-value>
+		<param-value>jdbc:mysql://vtransportina6:3306/cabservice?autoReconnect=true</param-value>
 	</context-param>
 	<context-param>
 		<param-name>username</param-name>
