@@ -6,10 +6,10 @@ import java.util.Timer;
 
 public class EmailScheduler {
 
-	public void callScheduler() throws Exception {
+	public void callScheduler(Timer timer) throws Exception {
 
 		System.out.println("Scheduler Starterd...");
-		Timer timer = new Timer();
+		
 		long millisInADay = 24 * 60 * 60 * 1000;
 		Calendar cal = Calendar.getInstance();
 		Date date = new Date();
@@ -36,11 +36,11 @@ public class EmailScheduler {
 		timer.scheduleAtFixedRate(new EmailDispatcher(),
 				(millisInADay + pm4.getTime() - date.getTime()) % millisInADay,
 				millisInADay);
+	
 	}
 
-	public static void main(String a[]) throws Exception {
-		EmailScheduler ems = new EmailScheduler();
-		ems.callScheduler();
-	}
+//	public static void main(String a[]) throws Exception {
+//		
+//	}
 
 }

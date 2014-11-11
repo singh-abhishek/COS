@@ -1,6 +1,7 @@
 package com.ideas.controller;
 
 import java.sql.SQLException;
+import java.util.Timer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -11,6 +12,7 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 
 import vendorreport.CreateExcelFile;
+import vendorreport.EmailScheduler;
 
 import com.ideas.domain.Repository;
 import com.ideas.routeOptimization.RouteOptimizer;
@@ -22,6 +24,7 @@ public class COSServletContextListener implements ServletContextListener {
 	private ControllerHelper helper;
 	private RouteOptimizer routeOptimizer;
 	private CreateExcelFile excelFile;
+	private Timer timer = new Timer();
 	
 	public void contextInitialized(ServletContextEvent sce) {
 		ServletContext servletContext = sce.getServletContext();
@@ -34,10 +37,12 @@ public class COSServletContextListener implements ServletContextListener {
 			repository = new Repository(dataSource.getConnection());
 			routeOptimizer = new RouteOptimizer(dataSource.getConnection());
 			excelFile = new CreateExcelFile(dataSource.getConnection());
-			
+			new EmailScheduler().callScheduler(timer);
+
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		servletContext.setAttribute("repository", repository);
@@ -47,7 +52,8 @@ public class COSServletContextListener implements ServletContextListener {
 		servletContext.setAttribute("helper", helper);
 	}
 
-	private static DataSource setupDataSource(String username, String password, String driverClassName, String url) {
+	private static DataSource setupDataSource(String username, String password,
+			String driverClassName, String url) {
 		BasicDataSource ds = new BasicDataSource();
 		ds.setDriverClassName(driverClassName);
 		ds.setUsername(username);
@@ -60,7 +66,9 @@ public class COSServletContextListener implements ServletContextListener {
 		BasicDataSource bds = (BasicDataSource) dataSource;
 		try {
 			bds.close();
-		} catch (SQLException e) {}
+			timer.cancel();
+		} catch (SQLException e) {
+		}
 	}
 
 }
