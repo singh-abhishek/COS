@@ -11,7 +11,7 @@ public class EmailDispatcher extends TimerTask {
 	public void run() {
 
 		String toEmail = "singhkmabhishek@gmail.com"; 
-		String subject = "Java send mail example";
+		String subject = "Ideas Cab Schedule";
 		String body = "Ideas Cab Schedule";
 
 		try {
