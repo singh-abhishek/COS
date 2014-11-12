@@ -29,18 +29,15 @@ public class EmailScheduler {
 //		System.out.println("Will send evening roster i: "
 //				+ (millisInADay + pm4.getTime() - date.getTime())
 //				% millisInADay / 60000 + "mins");
+		
 		timer.scheduleAtFixedRate(
 				new EmailDispatcher(),
-				5000,
-				60000);
-//		timer.scheduleAtFixedRate(
-//				new EmailDispatcher(),
-//				(millisInADay + am11.getTime() - date.getTime()) % millisInADay,
-//				millisInADay);
-//		timer.scheduleAtFixedRate(new EmailDispatcher(),
-//				(millisInADay + pm4.getTime() - date.getTime()) % millisInADay,
-//				millisInADay);
-//	
+				(millisInADay + am11.getTime() - date.getTime()) % millisInADay,
+				millisInADay);
+		timer.scheduleAtFixedRate(new EmailDispatcher(),
+				(millisInADay + pm4.getTime() - date.getTime()) % millisInADay,
+				millisInADay);
+	
 	}
 
 //	public static void main(String a[]) throws Exception {
