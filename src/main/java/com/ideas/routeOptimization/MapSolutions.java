@@ -152,7 +152,7 @@ public class MapSolutions {
 	}
 
 	private ArrayList<Object> createOrderedLatLngArray(DirectionsRoute[] result) {
-		ArrayList<Object> orderedLatLngArray = new ArrayList<>();
+		ArrayList<Object> orderedLatLngArray = new ArrayList<Object>();
 		for (int i=0;i<result[0].legs.length;i++){
 			orderedLatLngArray.add(result[0].legs[i].startLocation);
 		}

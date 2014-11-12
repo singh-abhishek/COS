@@ -22,7 +22,7 @@ public class EmailDispatcher extends TimerTask {
 			con.connect();
 			con.getResponseCode();
 			new Email().sendEmail(from, pass, to, subject, body);
-			//System.out.println("Email Sent Succesfully...");
+			System.out.println("Email Sent Succesfully...");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
