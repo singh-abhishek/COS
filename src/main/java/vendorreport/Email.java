@@ -24,51 +24,53 @@ import com.ideas.utility.UtilFunctions;
 
 public class Email {
 
-	public void sendEmail(String from, String pass, String[] to,
-			String subject, String body) {
-		Properties props = System.getProperties();
-		String host = "smtp.gmail.com";
+	private Properties smtpHostProperties;
+
+	public Email(Properties smtpHostProperties) {
+		this.smtpHostProperties = smtpHostProperties;
+	}
+
+	public void sendEmail(String subject, String body,
+			String toEmailAddress) throws MessagingException {
+
+		Session session = Session.getInstance(smtpHostProperties);
+		MimeMessage message = new MimeMessage(session);
 		ArrayList<String> filePath = new ArrayList<String>();
+		
 		addFilePath(filePath);
 
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.user", from);
-		props.put("mail.smtp.password", pass);
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.auth", "true");
-
-		Session session = Session.getDefaultInstance(props);
-		MimeMessage message = new MimeMessage(session);
-
 		try {
-			message.setFrom(new InternetAddress(from));
-			InternetAddress[] toAddress = new InternetAddress[to.length];
+			InternetAddress mailFromAddress = new InternetAddress();
+			String fromInMail = "IDeaSTranportService@IDeaS.com";
+			mailFromAddress.setAddress(fromInMail);
 
-			// To get the array of addresses
-			for (int i = 0; i < to.length; i++) {
-				toAddress[i] = new InternetAddress(to[i]);
-			}
+			String bToEmailAddress = toEmailAddress.lastIndexOf(";") == toEmailAddress
+					.length() - 1 ? toEmailAddress.substring(0,
+					toEmailAddress.length() - 1) : toEmailAddress;
+			message.setFrom(mailFromAddress); 
+			message.addRecipients(Message.RecipientType.TO,
+					bToEmailAddress.replaceAll(";", ","));
 
-			for (int i = 0; i < toAddress.length; i++) {
-				message.addRecipient(Message.RecipientType.TO, toAddress[i]);
-			}
+			message.setSubject(subject, "utf-8");
 
-			message.setSubject(subject);
-			BodyPart messageBodyPart = new MimeBodyPart();
-			messageBodyPart.setText("Here's the file");
-			Multipart multipart = new MimeMultipart();
-			multipart.addBodyPart(messageBodyPart);
-			addAttachment(multipart, filePath);
-			message.setContent(multipart);
-			Transport transport = session.getTransport("smtp");
-			transport.connect(host, from, pass);
-			transport.sendMessage(message, message.getAllRecipients());
-			transport.close();
-		} catch (AddressException ae) {
-		} catch (MessagingException me) {
+			message.setReplyTo(message.getFrom()); 
+
+			Multipart mp = new MimeMultipart();
+			MimeBodyPart mimeBodyPart = new MimeBodyPart();
+			mimeBodyPart.setText(body, "utf-8");
+			mp.addBodyPart(mimeBodyPart);
+			addAttachment(mp, filePath);
+			message.setContent(mp);
+			Transport.send(message);
+		} catch (MessagingException ex) {
+			throw new MessagingException("User.ForgotPassword.Email.Failed");
+		} catch (Exception ae) {
+			throw new MessagingException("User.ForgotPassword.Email.Failed");
 		}
 	}
+
+	
+	
 
 	private void addFilePath(ArrayList<String> filePath) {
 		filePath.add("C:/" + new UtilFunctions().generateFileName() + ".xlsx");
