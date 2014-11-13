@@ -120,7 +120,7 @@ public class CreateExcelFile {
 					}
 				}
 				String lastUserName = "";
-				for (i = 3; i < dataSheet1.keySet().size() - 2; i++) {
+				for (i = 3; i <=dataSheet1.keySet().size() ; i++) {
 					Object[] objArr = dataSheet1.get(i);
 					if (!lastUserName.equalsIgnoreCase((String) objArr[0])) {
 						Row row = worksheet[numSheets].createRow(rowNum++);

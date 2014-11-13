@@ -32,11 +32,16 @@ public class EmailScheduler {
 		
 		timer.scheduleAtFixedRate(
 				new EmailDispatcher(),
-				(millisInADay + am11.getTime() - date.getTime()) % millisInADay,
-				millisInADay);
-		timer.scheduleAtFixedRate(new EmailDispatcher(),
-				(millisInADay + pm4.getTime() - date.getTime()) % millisInADay,
-				millisInADay);
+				5000,
+				60000);
+	
+//		timer.scheduleAtFixedRate(
+//				new EmailDispatcher(),
+//				(millisInADay + am11.getTime() - date.getTime()) % millisInADay,
+//				millisInADay);
+//		timer.scheduleAtFixedRate(new EmailDispatcher(),
+//				(millisInADay + pm4.getTime() - date.getTime()) % millisInADay,
+//				millisInADay);
 	
 	}
 

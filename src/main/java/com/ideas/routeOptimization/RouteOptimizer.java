@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 public class RouteOptimizer {
@@ -31,6 +32,7 @@ public class RouteOptimizer {
 			clusters = clubbingClusterWIthSizeOneAndOtherClusters(clusters);
 			clusters = clubbingClusterOfSizeTwoWIthOthers(clusters);
 			inTimesOutputMap.put(time, clusters);
+			//printClusterInAFormat(clusters);
 
 		}
 
@@ -40,6 +42,7 @@ public class RouteOptimizer {
 			clusters = clubbingClusterWIthSizeOneAndOtherClusters(clusters);
 			clusters = clubbingClusterOfSizeTwoWIthOthers(clusters);
 			outTimesOutputMap.put(time, clusters);
+			//printClusterInAFormat(clusters);
 		}
 		ArrayList<TreeMap<Time, ArrayList<ArrayList<DataPoint>>>> timesMapOutput = new ArrayList<TreeMap<Time, ArrayList<ArrayList<DataPoint>>>>();
 		timesMapOutput.add(inTimesOutputMap);
@@ -48,20 +51,22 @@ public class RouteOptimizer {
 
 	}
 
-	// private static void printClusterInAFormat(ArrayList<ArrayList<DataPoint>>
-	// vList) {
-	//
-	// for (int i = 0; i < vList.size(); i++) {
-	// System.out.println("-----------Cluster" + i + "---------");
-	// Iterator<DataPoint> iter = vList.get(i).iterator();
-	// while (iter.hasNext()) {
-	// DataPoint dpTemp = iter.next();
-	// System.out.println(dpTemp.getObjName() + "[" + dpTemp.getX() + "," +
-	// dpTemp.getY() + "]");
-	// }
-	// }
-	// }
-
+	 private static void printClusterInAFormat(ArrayList<ArrayList<DataPoint>>
+	 vList) {
+	
+	 for (int i = 0; i < vList.size(); i++) {
+	 System.out.println("-----------Cluster" + i + "---------");
+	 Iterator<DataPoint> iter = vList.get(i).iterator();
+	 while (iter.hasNext()) {
+	 DataPoint dpTemp = iter.next();
+	 System.out.println(dpTemp.getObjName() + "[" + dpTemp.getX() + "," +
+	 dpTemp.getY() + "]");
+	 }
+	 }
+	 }
+//public static void main(String[] args) {
+//	new RouteOptimizer(connection).optimizeRoute();
+//}
 	private static ArrayList<ArrayList<DataPoint>> clubbingClusterOfSizeTwoWIthOthers(ArrayList<ArrayList<DataPoint>> vList) {
 		for (int i = 0; i < vList.size(); i++) {
 			if (vList.get(i).size() == 2) {
