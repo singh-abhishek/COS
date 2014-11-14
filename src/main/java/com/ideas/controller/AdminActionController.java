@@ -22,19 +22,23 @@ import com.ideas.domain.Repository;
 @WebServlet(urlPatterns = "/admin")
 public class AdminActionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Repository repository; 
+	private Repository repository;
 	private ControllerHelper helper;
-	
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		repository = (Repository) config.getServletContext().getAttribute("repository");
-		helper = (ControllerHelper) config.getServletContext().getAttribute("helper");
+		repository = (Repository) config.getServletContext().getAttribute(
+				"repository");
+		helper = (ControllerHelper) config.getServletContext().getAttribute(
+				"helper");
 	}
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		COSServiceLayer service = new COSServiceLayer();
 		TreeMap<Date, String> companyHolidays = repository.getCompanyHolidays();
-		ArrayList<JSONObject> holidayList = service.convertToJSONArray(companyHolidays);
+		ArrayList<JSONObject> holidayList = service
+				.convertToJSONArray(companyHolidays);
 		request.setAttribute("holidays", holidayList);
 		Map<String, String> shiftTimings = repository.getShiftTimings();
 		List<String> inTime = getIndividualTimings(shiftTimings, "in");
@@ -44,7 +48,8 @@ public class AdminActionController extends HttpServlet {
 		helper.sendRequest(request, response, "AdminDashboard.jsp");
 	}
 
-	private List<String> getIndividualTimings(Map<String, String> shiftTimings, String slot) {
+	private List<String> getIndividualTimings(Map<String, String> shiftTimings,
+			String slot) {
 		List<String> timings = new ArrayList<String>();
 		for (Entry<String, String> entry : shiftTimings.entrySet()) {
 			if (entry.getValue().equals(slot))
@@ -52,31 +57,49 @@ public class AdminActionController extends HttpServlet {
 		}
 		return timings;
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("action").equals("addShift")) {
 			String inTime = getTime(request.getParameter("start"));
 			String outTime = getTime(request.getParameter("end"));
 			Boolean timeAdded = repository.addNewShifts(inTime, outTime);
 			helper.sendServerResponse(response, timeAdded.toString());
-		} else {
+		} else if (request.getParameter("action").equals("removeShiftTimings")) {
+			if (request.getParameter("type").equalsIgnoreCase("in")) {
+				System.out.println("intimeremoval");
+				String time = request.getParameter("time");
+				String slot = request.getParameter("type");
+				Boolean timeAdded = repository.removeShift(time, slot);
+				System.out.println("Added to repo =" + timeAdded);
+				helper.sendServerResponse(response, timeAdded.toString());
+			} else{
+				System.out.println("outtimeremoval");
+			String time = request.getParameter("time");
+			String slot = request.getParameter("type");
+			Boolean timeAdded = repository.removeShift(time, slot);
+			helper.sendServerResponse(response, timeAdded.toString());
+			}
+
+		}
+
+		else {
 			String reason = request.getParameter("title");
 			long timeInMillis = Long.valueOf(request.getParameter("start"));
 			Date holiday = new Date(timeInMillis);
 			String action = request.getParameter("action");
-			if (action.equals("add")){
+			if (action.equals("add")) {
 				Boolean isAdded = repository.addCompanyHoliday(holiday, reason);
 				helper.sendServerResponse(response, isAdded.toString());
-			}
-			else
+			} else
 				repository.removeCompanyHoliday(holiday);
 		}
 	}
-	
+
 	private String getTime(String time) {
-		if(time != "")
+		if (time != "")
 			time = time.substring(0, 5);
 		return time;
 	}
-	
+
 }

@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -186,6 +184,21 @@ public class Repository {
 			}
 		} catch (SQLException e) {}
 		return newInTimeFlag && newOutTimeFlag;
+	}
+	
+	public boolean removeShift(String time, String slot){
+		boolean success = false;
+		PreparedStatement check;
+		try {
+			check = connection.prepareStatement("DELETE FROM shift_details WHERE TIME=? AND slot=?");
+			check.setString(1, time);
+			check.setString(2, slot);
+			success = check.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+		
 	}
 	
 	public Employee getEmployeeFromUserName(String username){
