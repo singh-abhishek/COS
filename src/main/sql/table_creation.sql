@@ -38,7 +38,7 @@ DROP PROCEDURE IF EXISTS fillDefaultTiming$$
 CREATE PROCEDURE fillDefaultTiming (IN USERNAME VARCHAR(10))
 BEGIN
 	
-	SET @endDate = LAST_DAY(DATE_ADD( startDate, INTERVAL 0 MONTH));
+	SET @endDate = LAST_DAY(DATE_ADD( curdate(), INTERVAL 0 MONTH));
 	SET  @dt = DATE_ADD(@dt, INTERVAL 1 DAY);
 	SELECT @dt;
 	SET @dt = curdate();

@@ -213,6 +213,16 @@
 		else
 			document.getElementById('import').disabled = true;
 	}
+
+	function validate(){
+		var mobile = document.getElementById('mobile').value;
+		if(mobile.length != 10 || isNaN(mobile) == true){
+			document.getElementById("resultContainer1").innerHTML = "Mobile number should be a 10 digit number";
+			document.getElementById("resultContainer1").style.display = 'block';
+			return false;
+		}
+			return true;
+	}
 	
 </script>
 <style type="text/css">
