@@ -66,7 +66,7 @@ public class RouteOptimizerHandler {
 		ResultSet resultSet = conn.createStatement().executeQuery(
 				" select dashboard.username, latitude, longitude, event, time from employee_info info "
 						+ "inner join employee_dashboard dashboard  " + "on (info.username=dashboard.username)   "
-						+ "where travel_date = DATE_ADD(curdate(),INTERVAL 0 day)   "+ "and time < '16:00:00'    ");
+						+ "where travel_date = DATE_ADD(curdate(),INTERVAL 1 day)   "+ "and time < '16:00:00'    ");
 		return resultSet;
 	}
 

@@ -74,13 +74,9 @@ public class Repository {
 	}
 
 	public void fillDefaultTimingsInEmployeeSchedule(String username) {
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-		String startDate = year + "-" + month + "-01";
 		try {
-			CallableStatement procCall = connection.prepareCall("{call fillDefaultTiming(?, ?)}");
+			CallableStatement procCall = connection.prepareCall("{call fillDefaultTiming(?)}");
 			procCall.setString(1, username);
-			procCall.setString(2, startDate);
 			procCall.execute();
 		} catch (SQLException e) {
 		}

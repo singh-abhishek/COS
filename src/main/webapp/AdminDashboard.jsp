@@ -33,14 +33,14 @@
 <title>Dashboard</title>
 <script>
 	var eventDate = new Date();
-	$(document)
-			.ready(
+	$(document).ready(
 					function() {
 
 						$('table#inTimeTable td a.delete')
 								.click(
 										function() {
 											if (confirm("Are you sure you want to delete this row?")) {
+												updateRowId("inTimeTable");
 												var id = $(this).parent().parent().attr('id');
 												console.log("id="+id);
 												//var data = 'id=' + id ;
@@ -48,14 +48,14 @@
 														.parent();
 												var table = document
 														.getElementById("inTimeTable");
-												var data = table.rows[parseInt(id) + 1].cells[0].outerText;
+												var data = table.rows[parseInt(id)].cells[0].outerText;
 												//console.log(typeof(data));		
 												//console.log($('inTimeTable').rows.length);
 												//parent.fadeOut('slow', function() {$(this).remove();});
 												$.ajax({
 															type : "POST",
 															dataType : "json",
-															url : "/COSGradle/admin",
+															url : "/COS/admin",
 															data : {
 																action : "removeShiftTimings",
 																type : "in",
@@ -68,6 +68,7 @@
 																parent.fadeOut('slow',function() {
 																					$(this).remove();
 																				});
+																
 															}
 														});
 											}
@@ -77,18 +78,19 @@
 								.click(
 										function() {
 											if (confirm("Are you sure you want to delete this row?")) {
+												updateRowId("outTimeTable");
 												var id = $(this).parent()
 														.parent().attr('id');	
 												console.log("id="+id);											
 												var parent = $(this).parent().parent();
 												var table = document.getElementById("outTimeTable");
-												var data = table.rows[parseInt(id) + 1].cells[0].outerText;
+												var data = table.rows[parseInt(id)].cells[0].outerText;
 												
 												$
 														.ajax({
 															type : "POST",
 															dataType : "json",
-															url : "/COSGradle/admin",
+															url : "/COS/admin",
 															data : {
 																action : "removeShiftTimings",
 																type : "out",
@@ -159,7 +161,18 @@
 	,
 										});
 					});
-</script>
+	function updateRowId(tableId)
+	{
+	         if (!document.getElementsByTagName) return;
+	         table=document.getElementById(tableId);
+	         var i;
+	         for(i=0;i<table.rows.length;i++){
+	        	 table.rows[i].setAttribute("id", i, 0);
+
+		         }
+	         console.log("row id updated!");
+	}
+	</script>
 <style type="text/css">
 a {
 	color: #FF0000;
@@ -176,13 +189,13 @@ a {
 </style>
 </head>
 <body>
+
 	<div id="result"></div>
 	<div id='shiftDetailsContainer'>
 		<table>
 			<tr>
 				<td><button type="button" class="btn btn-primary"
-						id="shiftManager" onclick="showShifts()">View Shift
-						Details</button></td>
+						id="shiftManager" onclick="showShifts()">View Shift Details</button></td>
 				<td><button type="button" class="btn btn-primary" id="addShift"
 						onclick="addTiming()">Add new timings</button></td>
 				<td>
@@ -198,48 +211,44 @@ a {
 			</tr>
 		</table>
 		<div id="shiftDetails">
-			<table width="100%">
-				<td width="50%" align="center">
-					<table class="table table-striped table-bordered table-condensed"
-						id="inTimeTable">
-						<tr>
-							<th>In Time</th>
-							<th>Delete</th>
-						</tr>
-						<%
-							int i = 0;
+			<table class="table table-striped table-bordered table-condensed"
+				id="inTimeTable" style="float: left; width: 50%;">
+				<tr>
+					<th>In Time</th>
+					<th></th>
+				</tr>
+				<%
+							int i = 1;
 						%>
-						<c:forEach var="element" items="${inTime}" varStatus="status">
-							<tr id=<%=i++%>>
-								<td><c:out value="${element}" /></td>
-								<td align="center"><a href="#" class="delete"
-									style="color: #FF0000;"><img alt="" align="absmiddle"
-										border="0" src="delete.png" /></a></td>
-							</tr>
-						</c:forEach>
-					</table>
-				</td>
-				<td width="50%" align="center">
-					<table class="table table-striped table-bordered table-condensed"
-						id="outTimeTable">
-						<tr>
-							<th>Out Time</th>
-							<th>Delete</th>
-						</tr>
-						<%
-							i=0;
-						%>
-						<c:forEach var="element" items="${outTime}" varStatus="status">
-							<tr id=<%=i++%>>
-								<td><c:out value="${element}" /></td>
-								<td align="center"><a href="#" class="delete"
-									style="color: #FF0000;"><img alt="" align="absmiddle"
-										border="0" src="delete.png" /></a></td>
-							</tr>
-						</c:forEach>
-					</table>
-				</td>
+				<c:forEach var="element" items="${inTime}" varStatus="status">
+					<tr id=<%=i++%>>
+						<td><c:out value="${element}" /></td>
+						<td align="center" style="width: 4%"><a href="#"
+							class="delete" style="color: #FF0000;"><img alt=""
+								align="absmiddle" border="0" src="delete.png" /></a></td>
+					</tr>
+				</c:forEach>
 			</table>
+
+			<table class="table table-striped table-bordered table-condensed"
+				id="outTimeTable" style="float: right; width: 50%;">
+				<tr>
+					<th>Out Time</th>
+					<th></th>
+				</tr>
+				<%
+							i=1;
+						%>
+				<c:forEach var="element" items="${outTime}" varStatus="status">
+					<tr id=<%=i++%>>
+						<td><c:out value="${element}" /></td>
+						<td align="center" style="width: 4%"><a href="#"
+							class="delete" style="color: #FF0000;"><img alt=""
+								align="absmiddle" border="0" src="delete.png" /></a></td>
+					</tr>
+				</c:forEach>
+			</table>
+
 		</div>
 	</div>
 	<br>

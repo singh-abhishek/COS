@@ -35,13 +35,13 @@ INSERT INTO shift_details VALUES('23:00', 'out');
 
 DELIMITER $$
 DROP PROCEDURE IF EXISTS fillDefaultTiming$$
-CREATE PROCEDURE fillDefaultTiming (IN USERNAME VARCHAR(10), IN startDate VARCHAR(12))
+CREATE PROCEDURE fillDefaultTiming (IN USERNAME VARCHAR(10))
 BEGIN
 	
 	SET @endDate = LAST_DAY(DATE_ADD( startDate, INTERVAL 0 MONTH));
 	SET  @dt = DATE_ADD(@dt, INTERVAL 1 DAY);
 	SELECT @dt;
-	SET @dt = startDate;
+	SET @dt = curdate();
 	SELECT @dt;
 	WHILE (@dt <= @endDate) DO
 		SELECT @dayOfWeek;
