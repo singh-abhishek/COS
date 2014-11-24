@@ -30,8 +30,6 @@ public class RouteOptimizationController extends HttpServlet {
 	private ControllerHelper helper;
 	private Repository repository;
 	private CreateExcelFile excelFile;
-	
-
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -43,7 +41,7 @@ public class RouteOptimizationController extends HttpServlet {
 				"repository");
 		excelFile = (CreateExcelFile) config.getServletContext().getAttribute(
 				"excelFile");
-		
+
 	}
 
 	public RouteOptimizationController() {
@@ -114,12 +112,11 @@ public class RouteOptimizationController extends HttpServlet {
 							minIndex = k;
 						}
 					}
+					 
+					DataPoint temp = inputInTimeMap.get(time).get(i).get(minIndex);
+					inputInTimeMap.get(time).get(i).remove(minIndex);
 					timeMap.get(time).get(i).remove(j);
-					timeMap.get(time)
-							.get(i)
-							.add(j,
-									inputInTimeMap.get(time).get(i)
-											.get(minIndex));
+					timeMap.get(time).get(i).add(j,	temp);
 				}
 			}
 		}
