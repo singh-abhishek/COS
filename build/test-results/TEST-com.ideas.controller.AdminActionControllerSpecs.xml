@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ideas.controller.AdminActionControllerSpecs" tests="1" skipped="0" failures="0" errors="0" timestamp="2014-11-10T17:06:56" hostname="didnaisina6" time="0.0">
-  <properties/>
-  <testcase name="getRequestOnAdminActionControllerIsSuccessful" classname="com.ideas.controller.AdminActionControllerSpecs" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

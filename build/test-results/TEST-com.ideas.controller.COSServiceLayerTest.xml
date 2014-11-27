@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.ideas.controller.COSServiceLayerTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2014-11-10T17:06:56" hostname="didnaisina6" time="0.016">
-  <properties/>
-  <testcase name="shouldConvertEmpScheduleToJson" classname="com.ideas.controller.COSServiceLayerTest" time="0.009"/>
-  <testcase name="shouldConvertTreeMapToJsonArray" classname="com.ideas.controller.COSServiceLayerTest" time="0.001"/>
-  <testcase name="shouldConvertJsonToEmployeeSchedule" classname="com.ideas.controller.COSServiceLayerTest" time="0.006"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
