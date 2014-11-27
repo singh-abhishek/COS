@@ -62,6 +62,8 @@ public class ActiveDirectoryUserInfo {
 		Object object;
 		try {
 			object = this.userData.item("employeeID").value();
+			System.out.println("accessing...");
+			System.out.println("class of thumbnailphoto is :"+this.userData.item(4).value());
 			employeeID = object.toString();
 		} catch (ComException e) {
 			employeeID = "";

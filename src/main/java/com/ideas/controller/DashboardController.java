@@ -32,7 +32,7 @@ public class DashboardController extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = (String) request.getSession().getAttribute("username");
+		String username = request.getRemoteUser().substring(4);
 		EmployeeSchedule schedule = repository.getEmployeeSchedule(username);
 		ArrayList<JSONObject> jsonObjArray= new COSServiceLayer().convertEmpScheduleToJson(schedule);
 		request.setAttribute("eventScheduleArray", jsonObjArray);
@@ -54,7 +54,7 @@ public class DashboardController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = (String) request.getSession().getAttribute("username");
+		String username =request.getRemoteUser().substring(4);
 		String action = request.getParameter("action");
 			repository.fillDefaultTimingsInEmployeeSchedule(username);
 /*			if(month == 0)

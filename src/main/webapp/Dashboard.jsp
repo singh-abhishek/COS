@@ -15,7 +15,8 @@
 <%	String employeeUsername = request.getRemoteUser();
 	ArrayList<?> eventScheduleArray = (ArrayList<?>) request.getAttribute("eventScheduleArray");
 	ArrayList<String> inTime = (ArrayList<String>) request.getAttribute("inTime");
-	ArrayList<String> outTime = (ArrayList<String>) request.getAttribute("outTime");%>
+	ArrayList<String> outTime = (ArrayList<String>) request.getAttribute("outTime");
+%>
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -25,6 +26,18 @@
 <script src='js/fullcalendar.js'></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Dashboard</title>
+
+<script type="text/javascript">
+     window.onbeforeunload = popit;
+     function popit() {
+         	debugger;
+         	finalEvents = $('#calendar').fullCalendar('clientEvents'); 
+			if(!compareEvents(initialEvents,finalEvents))
+				         return "You have unsaved changes on this page"; 
+			return ;
+
+	         }
+</script>
 <script>
 	var startSelect = new Date();
 	var endSelect = new Date();
@@ -39,7 +52,21 @@
 	var today;
 	var tomorrow;
 	var selectedMonth;
+	var initialEvents;
+	var finalEvents;
+	function compareEvents(a,b){
+		if(a.length != b.length)
+			return false;
+		for(var i=0;i<a.length;i++){
+				if(a[i]._start != b[i]._start || a[i].title != b[i].title){
+						return false;
+					}
+			}
+		return true;
+		}
 	function updateChanges() {
+		initialEvents = $('#calendar').fullCalendar('clientEvents');
+		//console.log(compareEvents(initialEvents,finalEvents));
 		eventsFromCalendar = $('#calendar').fullCalendar('clientEvents');
 		for (var i = 0; i < eventsFromCalendar.length; i++) {
 			var JSONObj = {
@@ -58,8 +85,11 @@
 			success : function(msg) {
 				if (msg === true) {
 					$("#resultContainer").html("<p style='color:green' class='alert alert-success'>Schedule Updated</p>");
+					$("#resultContainer").delay(100).fadeIn(300);
+					$("#resultContainer").delay(1200).fadeOut(800);
 				} else {
 					$("#resultContainer").html("<div class='alert alert-danger'>Schedule Update Failed</div>");
+					$("#resultContainer").delay(1200).fadeOut(800);
 				}
 			},
 			error : function() {
@@ -80,6 +110,7 @@
 	}
 	
 	function saveChange() {
+		
 		$('#calendar').fullCalendar('removeEvents', function(event) {
 			endSelect.setHours(23, 59, 59, 999);
 			if ((event.start >= startSelect) && (event.start <= endSelect))
@@ -127,8 +158,7 @@
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
-		var y = date.getFullYear();
-
+		var y = date.getFullYear();		
 		var calendar = $('#calendar').fullCalendar({
 			header : {
 				left : 'prev,next today',
@@ -140,6 +170,7 @@
 			eventClick : function(event, element) {
 			},
 			select : function(start, end, allDay) {
+				initialEvents =$('#calendar').fullCalendar('clientEvents');
 				var validInTimes=[];
 				var validOutTimes=[];
 				startSelect = start;
@@ -204,6 +235,10 @@
 			editable : true,
 			events: <%=eventScheduleArray%>
 		});
+
+		
+		
+		
 	});
 	
 	function showButton(){
@@ -249,9 +284,11 @@
 <body>
 <div class="btn-group" style="position:relative;right:-540px;top:-10px;
             border-color:blue;">
-  <button type="button" class="btn btn-link dropdown-toggle"  data-toggle="dropdown">
+             
+  <button type="button" class="btn btn-link dropdown-toggle"  data-toggle="dropdown"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=25" class="profile-image img-circle">
     ${employeeDetails.name} <span class="caret"></span>
   </button>
+  
   <ul class="dropdown-menu" role="menu"  >
     <li><a class="text-left" href="Maps.jsp">Edit Pick-up Location</a></li>
     <li><a class="align-left" data-toggle="modal" data-backdrop="static" href="#updateMobile" style="

@@ -33,7 +33,7 @@ public class AuthenticationController extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = null;
-		String username = (String) request.getSession().getAttribute("username");
+		String username = request.getRemoteUser().substring(4);		
 		Employee employeeDetails = getEmployeeDetailsFromActiveDirectory(username);
 		request.setAttribute("employeeDetails", employeeDetails);
 		if (repository.isEmployeeAdmin(username))
@@ -44,7 +44,7 @@ public class AuthenticationController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = (String) request.getSession().getAttribute("username");
+		String username = request.getRemoteUser().substring(4);	
 		Employee employeeLocationDetails = getEmployeeLocationDetailsFromRequest(request, username);
 		request.setAttribute("locationDetails", employeeLocationDetails);
 		Employee employeeDetails = getEmployeeDetailsFromActiveDirectory(username);

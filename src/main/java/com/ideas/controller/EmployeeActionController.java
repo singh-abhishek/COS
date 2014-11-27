@@ -26,8 +26,7 @@ public class EmployeeActionController extends HttpServlet {
 	}
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = (String) request.getSession()
-				.getAttribute("username");
+		String username = request.getRemoteUser().substring(4);
 		String mobile = request.getParameter("mobile");
 		boolean isAdded = repository.updateMobileForEmployee(username, mobile);
 		repository.fillDefaultTimingsInEmployeeSchedule(username);
@@ -35,7 +34,7 @@ public class EmployeeActionController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = (String) request.getSession().getAttribute("username");
+		String username = request.getRemoteUser().substring(4);
 		String address = request.getParameter("userAddress");
 		String name = request.getParameter("name");
 		double latitude = Double.parseDouble(request.getParameter("latitude"));

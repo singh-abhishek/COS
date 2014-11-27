@@ -69,6 +69,8 @@ public class Repository {
 					eventsDateMap.put(rs.getDate(2), eventsTimeMap);
 				}
 			}
+			
+			
 		} catch (SQLException e) {}
 		return new EmployeeSchedule(username, eventsDateMap);
 	}
