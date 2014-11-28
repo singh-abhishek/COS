@@ -28,6 +28,7 @@ public class CreateExcelFile {
 	}
 	public void createExcel() {
 		try {
+			System.out.println("Creating excel file...");
 			String filename = "C:/"+new UtilFunctions().generateFileName()+".xlsx";
 			XSSFWorkbook wb = new XSSFWorkbook();
 			XSSFSheet[] worksheet = new XSSFSheet[3];
@@ -170,6 +171,7 @@ public class CreateExcelFile {
 			FileOutputStream fileOut = new FileOutputStream(filename);
 			wb.write(fileOut);
 			fileOut.close();
+			System.out.println("Excel file created successfully...");
 		} catch (Exception ex) {
 			ex.printStackTrace();;
 

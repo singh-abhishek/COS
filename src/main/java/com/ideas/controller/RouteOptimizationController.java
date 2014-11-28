@@ -51,6 +51,7 @@ public class RouteOptimizationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
+			System.out.println("Reached routeOptimize...");
 			excelFile.createExcel();
 			ArrayList<TreeMap<Time, ArrayList<ArrayList<DataPoint>>>> timeMapList = routeOptimizer
 					.optimizeRoute();

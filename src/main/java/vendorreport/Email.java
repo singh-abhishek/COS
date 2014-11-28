@@ -62,6 +62,7 @@ public class Email {
 			addAttachment(mp, filePath);
 			message.setContent(mp);
 			Transport.send(message);
+			System.out.println("Email sent successfully...");
 		} catch (MessagingException ex) {
 			throw new MessagingException("User.ForgotPassword.Email.Failed");
 		} catch (Exception ae) {
