@@ -10,7 +10,7 @@ public class EmailDispatcher extends TimerTask {
 
 	public void run() {
 
-		String toEmail = "singhkmabhishek@gmail.com"; 
+		String[] toEmail = {"ameet.shelar@ideas.com", "mallika.james@ideas.com"}; 
 		String subject = "Ideas Cab Schedule";
 		String body = "Ideas Cab Schedule";
 
@@ -32,6 +32,5 @@ public class EmailDispatcher extends TimerTask {
 	public static void main(String[] args) {
 		new EmailDispatcher().run();
 	}
-	
 	
 }

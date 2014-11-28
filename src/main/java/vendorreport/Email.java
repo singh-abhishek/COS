@@ -31,7 +31,7 @@ public class Email {
 	}
 
 	public void sendEmail(String subject, String body,
-			String toEmailAddress) throws MessagingException {
+			String[] toEmail) throws MessagingException {
 
 		Session session = Session.getInstance(smtpHostProperties);
 		MimeMessage message = new MimeMessage(session);
@@ -43,13 +43,11 @@ public class Email {
 			InternetAddress mailFromAddress = new InternetAddress();
 			String fromInMail = "IDeaSTranportService@IDeaS.com";
 			mailFromAddress.setAddress(fromInMail);
-
-			String bToEmailAddress = toEmailAddress.lastIndexOf(";") == toEmailAddress
-					.length() - 1 ? toEmailAddress.substring(0,
-					toEmailAddress.length() - 1) : toEmailAddress;
 			message.setFrom(mailFromAddress); 
-			message.addRecipients(Message.RecipientType.TO,
-					bToEmailAddress.replaceAll(";", ","));
+			for(String recipient : toEmail){
+				
+				message.addRecipients(Message.RecipientType.TO,	recipient);
+			}
 
 			message.setSubject(subject, "utf-8");
 
