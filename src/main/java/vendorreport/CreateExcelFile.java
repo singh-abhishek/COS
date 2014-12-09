@@ -29,7 +29,7 @@ public class CreateExcelFile {
 	public void createExcel() {
 		try {
 			System.out.println("Creating excel file...");
-			String filename = "C:/"+new UtilFunctions().generateFileName()+".xlsx";
+			String filename = "C:/CabServiceReports/"+new UtilFunctions().generateFileName()+".xlsx";
 			XSSFWorkbook wb = new XSSFWorkbook();
 			XSSFSheet[] worksheet = new XSSFSheet[3];
 			worksheet[0] = wb.createSheet("Day View");

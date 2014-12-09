@@ -68,7 +68,22 @@ public class Repository {
 					eventsTimeMap.put(rs.getString(3), rs.getTime(4));
 					eventsDateMap.put(rs.getDate(2), eventsTimeMap);
 				}
+				
 			}
+			
+			Time time = new Time(0, 0, 0);
+			rs = connection.createStatement().executeQuery("SELECT * FROM holidays");
+			while (rs.next()) {
+				HashMap<String, Time> eventsTimeMap = new HashMap<String, Time>();
+				if (!eventsDateMap.containsKey(rs.getDate(1))) {
+					eventsTimeMap.put(rs.getString(2), time);
+					eventsDateMap.put(rs.getDate(1), eventsTimeMap);
+				} else {
+					eventsTimeMap = eventsDateMap.get(rs.getDate(1));
+					eventsTimeMap.put(rs.getString(2), time);
+					eventsDateMap.put(rs.getDate(1), eventsTimeMap);
+				}
+		}
 			
 			
 		} catch (SQLException e) {}
@@ -119,7 +134,7 @@ public class Repository {
 		try {
 			PreparedStatement ps = connection.prepareStatement("insert into holidays values(?, ?)");
 			ps.setDate(1, holiday);
-			ps.setString(2, reason);
+			ps.setString(2, "IDeaS Holiday: "+reason);
 			ps.executeUpdate();
 		} catch (SQLException e) {}
 		return true;

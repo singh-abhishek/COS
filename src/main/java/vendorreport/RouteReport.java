@@ -28,7 +28,7 @@ public class RouteReport {
     			Font.UNDERLINE);
     	
 		try {
-			OutputStream file = new FileOutputStream(new File("C:\\"+new UtilFunctions().generateFileName()+".pdf"));
+			OutputStream file = new FileOutputStream(new File("C:/CabServiceReports/"+new UtilFunctions().generateFileName()+".pdf"));
 
 			Document document = new Document();
 			PdfWriter.getInstance(document, file);

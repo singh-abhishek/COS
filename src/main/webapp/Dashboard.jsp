@@ -19,18 +19,17 @@
 %>
 <html>
 <head>
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap-combined.min.css">
 <script src="js/bootstrap.min.js"></script>
 <link rel='stylesheet' href='css/fullcalendar.css' />
-<script src='js/fullcalendar.js'></script>
+<script src='js/fullcalendar.min.js'></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Dashboard</title>
 
 <script type="text/javascript">
      window.onbeforeunload = popit;
      function popit() {
-         	debugger;
          	finalEvents = $('#calendar').fullCalendar('clientEvents'); 
 			if(!compareEvents(initialEvents,finalEvents))
 				         return "You have unsaved changes on this page"; 
@@ -113,7 +112,7 @@
 		
 		$('#calendar').fullCalendar('removeEvents', function(event) {
 			endSelect.setHours(23, 59, 59, 999);
-			if ((event.start >= startSelect) && (event.start <= endSelect))
+			if ((event.start >= startSelect) && (event.start <= endSelect) && event.title.indexOf("IDeaS Holiday")<=-1)
 				return true;
 			return false;
 		});
@@ -164,10 +163,25 @@
 				left : 'prev,next today',
 				center : 'title',
 			},
+			dayRender: function (date, cell) {
+		        var receivedEvents =   <%=eventScheduleArray%>;
+		        for(var i=0; i<receivedEvents.length;i++){
+			        var startDate = receivedEvents[i].start;
+		        	var parts = startDate.split(/-|:| /);
+			        var eventDate = new Date(parts[0], parts[1]-1, parts[2]);
+			        if (receivedEvents[i].title.indexOf("IDeaS Holiday")>-1 ){
+				        if( eventDate.getDate() === date.getDate() && eventDate.getMonth()===date.getMonth() && eventDate.getFullYear()===date.getFullYear()) {
+			            cell.css("background-color", "#9999CC");
+				        }
+			        }
+						
+			        } 		      
+		    },
 			selectable : true,
 			aspectRatio : 1.7,
 			selectHelper : true,
 			eventClick : function(event, element) {
+				
 			},
 			select : function(start, end, allDay) {
 				initialEvents =$('#calendar').fullCalendar('clientEvents');
@@ -230,9 +244,8 @@
 			},
 			viewDisplay: function(view){
 				selectedMonth = $("#calendar").fullCalendar('getDate').getMonth();
-				showButton(selectedMonth);
 			},
-			editable : true,
+			editable : false,
 			events: <%=eventScheduleArray%>
 		});
 
@@ -241,13 +254,7 @@
 		
 	});
 	
-	function showButton(){
-		var currentMonth = new Date().getMonth();
-		if(selectedMonth == (currentMonth + 1))
-			document.getElementById('import').disabled = false;
-		else
-			document.getElementById('import').disabled = true;
-	}
+	
 
 	function validate(){
 		var mobile = document.getElementById('mobile').value;
@@ -326,7 +333,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-body">
-					<h5>Sorry, but you cannot select past dates</h5>
+					<h5>Modification not allowed for selected date(s).</h5>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

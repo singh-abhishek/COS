@@ -14,6 +14,10 @@
 <script src="js/bootstrap.min.js"></script>
 <script
 	src="http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&dummy=.js"></script>
+	
+	<script type="text/javascript">
+	//$(function() { $('#pac-input').focus(); });
+	</script>
 <script type="text/javascript">
 	    var rendererOptions = {
 	        draggable: true,
@@ -37,15 +41,16 @@
 			    if (status == google.maps.GeocoderStatus.OK) {
 			    	if (results[1]) {
 			        	map.setZoom(11);
+			        	var infoWindowHeading = ' <h4>Pinpoint your location by dragging the pin</h4>';
 				    	var contentString = '<div id="content">'+
 				    						'<form action="authenticate" method="post">'+
 				    						' <input type="hidden" name="userAddress" value="' + results[1].formatted_address+ '" />' +
 				    						' <input type="hidden" name="latitude" value="' + lat + '" />' +
 				    						' <input type="hidden" name="longitude" value="' + lng + '" />' +
 				    						' <button type="submit" class="btn btn-success btn-xs">Submit</button><br/>'+
-				    						' <b>Click Submit or refine your search</b>'+'</form>'+
+				    						'</form>'+
 								   	        '</div>';
-			        	infowindow.setContent(results[1].formatted_address + contentString);
+			        	infowindow.setContent(infoWindowHeading + results[1].formatted_address + contentString);
 			        	infowindow.open(map, marker_end);
 			      	} 
 			       	else {
@@ -68,9 +73,10 @@
 		    marker_start = new google.maps.Marker({
 		      position: Ideas,
 		      map: map,
-		      title: 'Ideas Revenue Solutions'
+		      title: 'IDeaS Revenue Solutions'
 		    });
-	
+		    infowindow.setContent(' <div id="ideasHome"><h5>IDeaS Revenue Solutions<h5></div>');
+		    infowindow.open(map, marker_start);
 	        // Create the search box and link it to the UI element.
 	        var input = (document.getElementById('pac-input')); /** @type {HTMLInputElement} */
 	        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
@@ -78,6 +84,7 @@
 	
 	        // [START region_getplaces]
 	        google.maps.event.addListener(searchBox, 'places_changed', function() {
+	        	
 	            var places = searchBox.getPlaces();
 	            if (places.length == 0) {
 	                return;
@@ -116,6 +123,7 @@
 	            var bounds = map.getBounds();
 	            searchBox.setBounds(bounds);
 	        });
+	        
 	    }
 	
 	    function calcRoute(places) {
@@ -151,7 +159,18 @@
 			
 		}
 	    google.maps.event.addDomListener(window, 'load', initialize);
+	    
 	</script>
+	<style type="text/css">
+	#ideasHome{
+width:200px;
+height:30px;
+}
+#content{
+width:400px;
+height:40px;
+}
+</style>
 </head>
 <body>
 	<input id="pac-input" class="controls" type="text"

@@ -3,16 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel='stylesheet' href='css/fullcalendar.css' />
+<script src='js/fullcalendar.min.js'></script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src='js/fullcalendar.js'></script>
-<link rel='stylesheet' href='css/fullcalendar.css' />
+
 <script type="text/javascript">
 
-//FullCalendar v1.5
-//Script modified from the "theme.html" demo file
 $(document).ready(function() {
 
  var date = new Date();
@@ -20,14 +19,13 @@ $(document).ready(function() {
  var m = date.getMonth();
  var y = date.getFullYear();
 
- $('#calendar').fullCalendar({
-     theme: true,
+ $('#calendar').fullCalendar({     
      header: {
          left: 'prev,next today',
          center: 'title',
          right: 'month,agendaWeek,agendaDay'
      },
-     editable: true,
+     editable: false,
 
      // add event name to title attribute on mouseover
      eventMouseover: function(event, jsEvent, view) {
@@ -35,6 +33,22 @@ $(document).ready(function() {
              $(jsEvent.target).attr('title', event.title);
          }
      },
+     dayRender: function (date, cell) {
+	        debugger;
+	        var today = new Date();
+	       
+	       /* for(var i=0;i < receivedEvents.length; i++){
+					if(receivedEvents[i].start == date){
+							
+						cell.css("background-color", "red");
+						}
+					
+		        } */
+		        if (date.getDate() === today.getDate()) {
+		            cell.css("background-color", "red");
+		        }
+	      
+	    },
      eventDestroy: function(event, element, view)
      {
          alert("removing stuff");
@@ -48,8 +62,7 @@ $(document).ready(function() {
            }
      },
 
-     // For DEMO only
-     // *************
+     
      events: [
          {
          title: 'All Day Event',
@@ -57,7 +70,8 @@ $(document).ready(function() {
      {
          title: 'Long Event',
          start: new Date(y, m, d - 5),
-         end: new Date(y, m, d - 2)},
+         allDay: true
+         },
      {
          id: 999,
          title: 'Repeating Event',
@@ -88,72 +102,26 @@ $(document).ready(function() {
          end: new Date(y, m, 29),
          url: 'http://google.com/'}
      ]
- });
+ }); 
 
-
- // Visual Event
- // http://www.sprymedia.co.uk/article/Visual+Event
- $('.vebookmarklet').click(function() {
-     if (typeof VisualEvent != 'undefined') {
-         if (document.getElementById('Event_display')) {
-             VisualEvent.fnClose();
-         } else {
-             VisualEvent.fnInit();
-         }
-     } else {
-         var n = document.createElement('script');
-         n.setAttribute('language', 'JavaScript');
-         n.setAttribute('src', 'http://www.sprymedia.co.uk/design/event/media/js/event-loader.js');
-         document.body.appendChild(n);
-     }
- });
-
- // See https://gist.github.com/938670
- $('.layers').click(function() {
-     $('.vebookmarklet').trigger('click');
-     var veColors = ['black', 'orange', 'purple', 'green', 'blue', 'yellow', 'red'],
-         veColorLength = veColors.length - 1,
-         veLayerIndex = 0;
-
-     function showVeLayer(nxt) {
-         veLayerIndex += (nxt) ? 1 : -1;
-         if (veLayerIndex > veColorLength) {
-             veLayerIndex = 0;
-         }
-         if (veLayerIndex < 0) {
-             veLayerIndex = veColorLength;
-         }
-
-         var veLayer = $('.Event_bg_' + veColors[veLayerIndex]);
-         if (veLayer.length === 0) {
-             showVeLayer(nxt);
-             return;
-         }
-
-         $('.Event_bg_' + veColors.join(', .Event_bg_')).hide();
-         veLayer.show();
-     }
-
-     $(document).keyup(function(e) {
-         switch (e.which) {
-         case 39:
-         case 40:
-             // right/down
-             showVeLayer(true);
-             break;
-         case 37:
-         case 38:
-             // left/up
-             showVeLayer();
-             break;
-         }
-     });
-
- });
-
+ 
 });
 
 </script>
+<style type="text/css">
+		body
+		{
+			margin-top: 40px;
+			text-align: center;
+			font-size: 14px;
+			font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		}
+		#calendar
+		{
+			width: 900px;
+			margin: 0 auto;
+		}
+	</style>
 </head>
 <body>
 <div id='calendar'></div>

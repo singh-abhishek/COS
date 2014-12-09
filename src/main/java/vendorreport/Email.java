@@ -72,8 +72,8 @@ public class Email {
 	
 
 	private void addFilePath(ArrayList<String> filePath) {
-		filePath.add("C:/" + new UtilFunctions().generateFileName() + ".xlsx");
-		filePath.add("C:/" + new UtilFunctions().generateFileName() + ".pdf");
+		filePath.add("C:/CabServiceReports/" + new UtilFunctions().generateFileName() + ".xlsx");
+		filePath.add("C:/CabServiceReports/" + new UtilFunctions().generateFileName() + ".pdf");
 	}
 
 	private void addAttachment(Multipart multipart, ArrayList<String> filePath)

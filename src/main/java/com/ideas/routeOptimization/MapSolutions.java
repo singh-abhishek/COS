@@ -98,7 +98,12 @@ public class MapSolutions {
 	private void sortWaypointsAccordingToDistance(DistanceMatrix result,
 			Map<Double, String> sortableMap, String[] places) {
 		for (int i = 0; i < places.length; i++) {
-			DistanceMatrixElement distanceMatrixElement = result.rows[0].elements[i];
+			DistanceMatrixElement distanceMatrixElement;
+			if(loopOverTimesMap == 0)
+			{distanceMatrixElement = result.rows[i].elements[0];}
+			else{
+				distanceMatrixElement = result.rows[0].elements[i];
+			}
 			double distance = distanceMatrixElement.distance.inMeters;
 			sortableMap.put(distance, places[i]);
 		}

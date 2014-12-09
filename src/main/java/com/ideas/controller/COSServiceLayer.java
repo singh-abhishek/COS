@@ -19,15 +19,21 @@ public class COSServiceLayer {
 			EmployeeSchedule schedule) {
 		ArrayList<JSONObject> jsonObjArray = new ArrayList<JSONObject>();
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("allDay", false);
 		for (Date dateKey : schedule.getEventsDateMap().keySet()) {
 			for (String eventKey : schedule.getEventsDateMap().get(dateKey)
 					.keySet()) {
+				map.put("backgroundColor", "#3a87ad");
+				map.put("allDay", false);
 				map.put("title", eventKey);
 				map.put("start", dateKey
 						+ " "
 						+ schedule.getEventsDateMap().get(dateKey)
 								.get(eventKey));
+				if(eventKey.contains("IDeaS Holiday")){
+					map.put("start", dateKey);
+					map.put("backgroundColor", "#330033");
+					map.remove("allDay");
+				}
 				jsonObjArray.add(new JSONObject(map));
 			}
 		}
@@ -49,12 +55,12 @@ public class COSServiceLayer {
 			try {
 				utilDate = format.parse(event.get("start"));
 			} catch (ParseException e) {}
-			Calendar cal = Calendar.getInstance(); // get calendar instance
-			cal.setTimeInMillis(utilDate.getTime()); // set cal to date
-			cal.set(Calendar.HOUR_OF_DAY, 0); // set hour to midnight
-			cal.set(Calendar.MINUTE, 0); // set minute in hour
-			cal.set(Calendar.SECOND, 0); // set second in minute
-			cal.set(Calendar.MILLISECOND, 0); // set millis in second
+			Calendar cal = Calendar.getInstance(); 
+			cal.setTimeInMillis(utilDate.getTime()); 
+			cal.set(Calendar.HOUR_OF_DAY, 0); 
+			cal.set(Calendar.MINUTE, 0); 
+			cal.set(Calendar.SECOND, 0);
+			cal.set(Calendar.MILLISECOND, 0); 
 			java.sql.Date sqlDate = new java.sql.Date(cal.getTimeInMillis());
 			java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
 			if (!eventDateMap.containsKey(sqlDate)) {

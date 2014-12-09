@@ -10,13 +10,13 @@ public class EmailDispatcher extends TimerTask {
 
 	public void run() {
 
-		String[] toEmail = {"ameet.shelar@ideas.com", "mallika.james@ideas.com"}; 
+		String[] toEmail = {"singhkmabhishek@gmail.com"}; 
 		String subject = "Ideas Cab Schedule";
 		String body = "Ideas Cab Schedule";
 
 		try {
 			System.out.println("Creating report and sending...");
-			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8080/COS/routeOptimize").openConnection();
+			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8181/COS/routeOptimize").openConnection();
 			con.setRequestMethod("GET");
 			con.connect();
 			con.getResponseCode();
