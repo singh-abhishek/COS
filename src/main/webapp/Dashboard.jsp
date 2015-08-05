@@ -19,6 +19,7 @@
 %>
 <html>
 <head>
+<link rel="shortcut icon" href="cab.png">
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <link rel="stylesheet" href="css/bootstrap-combined.min.css">
 <script src="js/bootstrap.min.js"></script>
@@ -292,7 +293,7 @@
 <div class="btn-group" style="position:relative;right:-540px;top:-10px;
             border-color:blue;">
              
-  <button type="button" class="btn btn-link dropdown-toggle"  data-toggle="dropdown"><img src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=25" class="profile-image img-circle">
+  <button type="button" class="btn btn-link dropdown-toggle"  data-toggle="dropdown"><img src="user.png">
     ${employeeDetails.name} <span class="caret"></span>
   </button>
   

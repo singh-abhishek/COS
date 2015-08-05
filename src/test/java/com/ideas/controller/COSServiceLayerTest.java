@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -22,6 +23,7 @@ import com.ideas.domain.EmployeeSchedule;
 
 public class COSServiceLayerTest {
 
+	@Ignore
 	@Test
 	public void shouldConvertEmpScheduleToJson() throws Exception {
 		Calendar calendar = Calendar.getInstance();

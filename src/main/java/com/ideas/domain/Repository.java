@@ -102,18 +102,27 @@ public class Repository {
 	public boolean updateSchedule(EmployeeSchedule schedule) {
 		PreparedStatement ps;
 		try {
-			connection.createStatement().execute("delete from employee_dashboard where username = '" + schedule.getUsername() + "'");
+			connection.createStatement().execute(
+					"delete from employee_dashboard where username = '"
+							+ schedule.getUsername() + "'");
 			for (Date dateKey : schedule.getEventsDateMap().keySet()) {
-				for (String eventKey : schedule.getEventsDateMap().get(dateKey).keySet()) {
-					ps = connection.prepareStatement("insert into employee_dashboard values(?, ?, ?, ?)");
-					ps.setString(1, schedule.getUsername());
-					ps.setDate(2, dateKey);
-					ps.setString(3, eventKey);
-					ps.setTime(4, schedule.getEventsDateMap().get(dateKey).get(eventKey));
-					ps.executeUpdate();
+				for (String eventKey : schedule.getEventsDateMap().get(dateKey)
+						.keySet()) {
+					if (eventKey.equalsIgnoreCase("In-Time")
+							|| eventKey.equalsIgnoreCase("Out-Time")) {
+						ps = connection.prepareStatement("insert into employee_dashboard values(?, ?, ?, ?)");
+						ps.setString(1, schedule.getUsername());
+						ps.setDate(2, dateKey);
+						ps.setString(3, eventKey);
+						ps.setTime(4, schedule.getEventsDateMap().get(dateKey)
+								.get(eventKey));
+						ps.executeUpdate();
+					}
 				}
 			}
-		} catch (SQLException e) {}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return true;
 	}
 

@@ -23,8 +23,12 @@ import com.ideas.routeOptimization.DataPoint;
 import com.ideas.routeOptimization.MapSolutions;
 import com.ideas.routeOptimization.RouteOptimizer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 @WebServlet(urlPatterns = "/routeOptimize")
 public class RouteOptimizationController extends HttpServlet {
+	private final static Logger LOGGER = LogManager.getLogger(RouteOptimizationController.class.getName());
 	private static final long serialVersionUID = 1L;
 	private RouteOptimizer routeOptimizer;
 	private ControllerHelper helper;
@@ -51,7 +55,7 @@ public class RouteOptimizationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
-			System.out.println("Reached routeOptimize...");
+			LOGGER.info("Optimizing Route.");
 			excelFile.createExcel();
 			ArrayList<TreeMap<Time, ArrayList<ArrayList<DataPoint>>>> timeMapList = routeOptimizer
 					.optimizeRoute();

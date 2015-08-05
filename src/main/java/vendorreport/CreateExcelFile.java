@@ -10,17 +10,21 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.apache.logging.log4j.LogManager;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import com.ideas.utility.UtilFunctions;
+import org.apache.logging.log4j.Logger;
 
 @SuppressWarnings("deprecation")
 public class CreateExcelFile {
-	
+	private static final Logger LOGGER = LogManager.getLogger(CreateExcelFile.class.getName());
 	private Connection connection;
 	public CreateExcelFile(Connection connection){
 		this.connection = connection;
@@ -28,7 +32,7 @@ public class CreateExcelFile {
 	}
 	public void createExcel() {
 		try {
-			System.out.println("Creating excel file...");
+			LOGGER.info("Creating excel file.");
 			String filename = "C:/CabServiceReports/"+new UtilFunctions().generateFileName()+".xlsx";
 			XSSFWorkbook wb = new XSSFWorkbook();
 			XSSFSheet[] worksheet = new XSSFSheet[3];
@@ -171,7 +175,7 @@ public class CreateExcelFile {
 			FileOutputStream fileOut = new FileOutputStream(filename);
 			wb.write(fileOut);
 			fileOut.close();
-			System.out.println("Excel file created successfully...");
+			LOGGER.info("Excel file created successfully.");
 		} catch (Exception ex) {
 			ex.printStackTrace();;
 

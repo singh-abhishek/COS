@@ -15,12 +15,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import com.ideas.domain.Repository;
 
 @WebServlet(urlPatterns = "/admin")
 public class AdminActionController extends HttpServlet {
+	private static final Logger LOGGER = LogManager.getLogger(AdminActionController.class.getName());
 	private static final long serialVersionUID = 1L;
 	private Repository repository;
 	private ControllerHelper helper;
@@ -67,17 +70,19 @@ public class AdminActionController extends HttpServlet {
 			helper.sendServerResponse(response, timeAdded.toString());
 		} else if (request.getParameter("action").equals("removeShiftTimings")) {
 			if (request.getParameter("type").equalsIgnoreCase("in")) {
-				System.out.println("intimeremoval");
+				LOGGER.info("Removing in-time.");
 				String time = request.getParameter("time");
 				String slot = request.getParameter("type");
 				Boolean timeAdded = repository.removeShift(time, slot);
 				System.out.println("Added to repo =" + timeAdded);
+				LOGGER.info("In-time with time: " + time + " and slot: " + slot + " removed.");
 				helper.sendServerResponse(response, timeAdded.toString());
 			} else{
-				System.out.println("outtimeremoval");
+				LOGGER.info("Removing out-time.");
 			String time = request.getParameter("time");
 			String slot = request.getParameter("type");
 			Boolean timeAdded = repository.removeShift(time, slot);
+			LOGGER.info("Out-time with time: " + time + " and slot: " + slot + " removed.");
 			helper.sendServerResponse(response, timeAdded.toString());
 			}
 
