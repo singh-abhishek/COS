@@ -7,8 +7,7 @@ defaultTasks 'clean',  'build'
 
 project.ext{
 
-	//libs
-	slf4j = 'org.slf4j:slf4j-api:1.7.5'
+	//libs	
 	servlet = 'javax.servlet:javax.servlet-api:3.1.0'
 	googleMaps = 'com.google.maps:google-maps-services:0.1.4'
 	dbcp = 'commons-dbcp:commons-dbcp:1.4'
@@ -32,8 +31,7 @@ project.ext{
 
 
 	//test-libs
-	junit = 'junit:junit:4.11'
-	spock='org.spockframework:spock-core:0.7-groovy-2.0'
+	junit = 'junit:junit:4.11'	
 }
 
 repositories { mavenCentral() }
@@ -41,12 +39,14 @@ repositories { mavenCentral() }
 
 dependencies {
 
-	compile (project.ext.slf4j, project.ext.servlet, project.ext.googleMaps,
+	compile (project.ext.servlet, project.ext.googleMaps,
 			project.ext.dbcp, project.ext.mail, project.ext.json, project.ext.waffle, 
 			project.ext.poi,	project.ext.jetty, project.ext.poiooxml, project.ext.com4j, 
 			project.ext.com4jado20, project.ext.activeDirectory, project.ext.jsonassert,
 			project.ext.hsqldb, project.ext.mysql, project.ext.jstl, project.ext.itext,
 			project.ext.log4j_api, project.log4j_core)
+			
+	compile files("/configuration")
 
 	testCompile (project.ext.junit)
 }

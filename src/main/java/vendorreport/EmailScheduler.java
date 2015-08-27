@@ -4,11 +4,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.ideas.controller.RouteOptimizationController;
+
 public class EmailScheduler {
 
+	private final static Logger LOGGER = LogManager.getLogger(EmailScheduler.class.getName()); 
 	public void callScheduler(Timer timer) throws Exception {
 
-		System.out.println("Scheduler Starterd...");
+		LOGGER.info("Scheduler Starterd...");
 		
 		long millisInADay = 24 * 60 * 60 * 1000;
 		Calendar cal = Calendar.getInstance();
@@ -23,10 +29,10 @@ public class EmailScheduler {
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date pm4 = new Date(cal.getTimeInMillis());
-		System.out.println("Will send morning roster in: "
+		LOGGER.info("Will send morning roster in: "
 				+ (millisInADay + am11.getTime() - date.getTime())
 				% millisInADay / 60000 + "mins");
-		System.out.println("Will send evening roster in: "
+		LOGGER.info("Will send evening roster in: "
 				+ (millisInADay + pm4.getTime() - date.getTime())
 				% millisInADay / 60000 + "mins");
 		
