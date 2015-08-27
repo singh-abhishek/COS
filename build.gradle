@@ -36,6 +36,10 @@ project.ext{
 
 repositories { mavenCentral() }
 
+war {   
+    rootSpec.exclude("**/servlet-api-*.jar")
+}
+
 
 dependencies {
 
