@@ -39,7 +39,7 @@ repositories { mavenCentral() }
 
 dependencies {
 
-	compile (project.ext.servlet, project.ext.googleMaps,
+	compile (project.ext.googleMaps,
 			project.ext.dbcp, project.ext.mail, project.ext.json, project.ext.waffle, 
 			project.ext.poi,	project.ext.jetty, project.ext.poiooxml, project.ext.com4j, 
 			project.ext.com4jado20, project.ext.activeDirectory, project.ext.jsonassert,
@@ -47,6 +47,8 @@ dependencies {
 			project.ext.log4j_api, project.log4j_core)
 			
 	compile files("/configuration")
+	
+	providedCompile(project.ext.servlet)
 
 	testCompile (project.ext.junit)
 }
