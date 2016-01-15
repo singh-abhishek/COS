@@ -17,7 +17,7 @@ project.ext{
 	poi = 'org.apache.poi:poi:3.10-FINAL'
 	jetty = 'org.eclipse.jetty:jetty-servlet-tester:7.0.0.M2'
 	poiooxml = 'org.apache.poi:poi-ooxml:3.10.1'
-	com4j = 'org.jvnet.com4j:com4j:20110320'
+	com4j = 'org.jvnet.com4j:com4j:2.1'
 	com4jado20 = 'org.jvnet.com4j.typelibs:ado20:1.0'
 	activeDirectory = 'org.jvnet.com4j.typelibs:active-directory:1.0'
 	jsonassert = 'org.skyscreamer:jsonassert:1.2.3'
@@ -34,7 +34,13 @@ project.ext{
 	junit = 'junit:junit:4.11'	
 }
 
-repositories { mavenCentral() }
+repositories {
+	mavenCentral()
+}
+
+configurations.all {
+	resolutionStrategy.force project.ext.com4j
+}
 
 war {   
     rootSpec.exclude("**/servlet-api-*.jar")
@@ -45,8 +51,9 @@ dependencies {
 
 	compile (project.ext.googleMaps,
 			project.ext.dbcp, project.ext.mail, project.ext.json, project.ext.waffle, 
-			project.ext.poi,	project.ext.jetty, project.ext.poiooxml, project.ext.com4j, 
-			project.ext.com4jado20, project.ext.activeDirectory, project.ext.jsonassert,
+			project.ext.poi,	project.ext.jetty, project.ext.poiooxml, project.ext.com4jado20,
+			project.ext.activeDirectory,
+			project.ext.jsonassert,
 			project.ext.hsqldb, project.ext.mysql, project.ext.jstl, project.ext.itext,
 			project.ext.log4j_api, project.log4j_core)
 			
