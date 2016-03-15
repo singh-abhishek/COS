@@ -33,7 +33,7 @@ public class CreateExcelFile {
 	public void createExcel() {
 		try {
 			LOGGER.info("Creating excel file.");
-			String filename = "C:/CabServiceReports/"+new UtilFunctions().generateFileName()+".xlsx";
+			String filename = "C:/CabServiceReports/" + UtilFunctions.generateFileName() + ".xlsx";
 			XSSFWorkbook wb = new XSSFWorkbook();
 			XSSFSheet[] worksheet = new XSSFSheet[3];
 			worksheet[0] = wb.createSheet("Day View");

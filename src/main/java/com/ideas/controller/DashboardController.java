@@ -56,7 +56,7 @@ public class DashboardController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username =request.getRemoteUser().substring(4);
 		String action = request.getParameter("action");
-			repository.fillDefaultTimingsInEmployeeSchedule(username);
+			//repository.fillDefaultTimingsInEmployeeSchedule(username);
 /*			if(month == 0)
 				month = 12;
 			int year = Integer.parseInt(request.getParameter("year"));

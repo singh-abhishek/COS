@@ -1,5 +1,8 @@
 package com.ideas.domain;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,6 +17,7 @@ import java.util.TreeMap;
 
 public class Repository {
 	private final Connection connection;
+	private static final Logger LOGGER = LogManager.getLogger(Repository.class);
 	
 	public Repository(Connection connection) {
 		if(connection == null)
@@ -26,7 +30,9 @@ public class Repository {
 			ResultSet rs = connection.createStatement().executeQuery("select 1 from admin_info where username = '" + username + "'");
 			if(rs.next())
 				return true;
-		} catch (SQLException e) {}
+		} catch (SQLException e) {
+			LOGGER.error("Error while finding user.");
+		}
 		return false;
 	}
 
@@ -41,17 +47,23 @@ public class Repository {
 
 	public boolean addEmployee(Employee employee) {
 		try {
-			PreparedStatement insertEmployeeInfo = connection.prepareStatement("insert into employee_info values(?, ?, ?, ?, ?, ?)");
-			insertEmployeeInfo.setString(1, employee.getUsername());
-			insertEmployeeInfo.setString(2, employee.getName());
-			insertEmployeeInfo.setString(3, employee.getAddress().getPickUpLocation());
-			insertEmployeeInfo.setDouble(4, employee.getAddress().getLatitude());
-			insertEmployeeInfo.setDouble(5, employee.getAddress().getLongitude());
-			insertEmployeeInfo.setString(6, employee.getMobile());
-			insertEmployeeInfo.executeUpdate();
+			PreparedStatement insertEmployeeQuery = connection.prepareStatement("insert into employee_info values(?, ?, ?, ?, ?, ?)");
+			setEmployeeDetails(employee, insertEmployeeQuery);
+			insertEmployeeQuery.executeUpdate();
 		} catch (Exception e) {
+			LOGGER.error("Error while inserting employee details.");
+			return false;
 		}
 		return true;
+	}
+
+	private void setEmployeeDetails(Employee employee, PreparedStatement insertEmployeeInfo) throws SQLException {
+		insertEmployeeInfo.setString(1, employee.getUsername());
+		insertEmployeeInfo.setString(2, employee.getName());
+		insertEmployeeInfo.setString(3, employee.getAddress().getPickUpLocation());
+		insertEmployeeInfo.setDouble(4, employee.getAddress().getLatitude());
+		insertEmployeeInfo.setDouble(5, employee.getAddress().getLongitude());
+		insertEmployeeInfo.setString(6, employee.getMobile());
 	}
 
 	public EmployeeSchedule getEmployeeSchedule(String username) {
@@ -256,6 +268,23 @@ public class Repository {
 			insertEmployeeInfo.setString(2, username);
 			insertEmployeeInfo.executeUpdate();
 		} catch (Exception e) {}
+		return true;
+	}
+	
+	public boolean updateEmployeeDetails(Employee employee){
+		try{
+			PreparedStatement updateEmployeeQuery = connection.prepareStatement("UPDATE employee_info SET NAME = ?, address = ?, latitude = ?, longitude = ?, mobile = ? where username = ?");
+			updateEmployeeQuery.setString(1, employee.getName());
+			updateEmployeeQuery.setString(2, employee.getAddress().getPickUpLocation());
+			updateEmployeeQuery.setDouble(3, employee.getAddress().getLatitude());
+			updateEmployeeQuery.setDouble(4, employee.getAddress().getLongitude());
+			updateEmployeeQuery.setString(5, employee.getMobile());
+			updateEmployeeQuery.setString(6, employee.getUsername());
+			updateEmployeeQuery.executeUpdate();
+		} catch (SQLException e) {
+			LOGGER.error("Error while updating employee details.");
+			return false;
+		}
 		return true;
 	}
 

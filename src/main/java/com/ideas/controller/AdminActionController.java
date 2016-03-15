@@ -74,7 +74,7 @@ public class AdminActionController extends HttpServlet {
 				String time = request.getParameter("time");
 				String slot = request.getParameter("type");
 				Boolean timeAdded = repository.removeShift(time, slot);
-				System.out.println("Added to repo =" + timeAdded);
+				LOGGER.info("Added to repo =" + timeAdded);
 				LOGGER.info("In-time with time: " + time + " and slot: " + slot + " removed.");
 				helper.sendServerResponse(response, timeAdded.toString());
 			} else{

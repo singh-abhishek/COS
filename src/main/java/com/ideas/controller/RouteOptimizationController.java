@@ -55,9 +55,8 @@ public class RouteOptimizationController extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
-			LOGGER.info("Optimizing Route.");
 			excelFile.createExcel();
-			ArrayList<TreeMap<Time, ArrayList<ArrayList<DataPoint>>>> timeMapList = routeOptimizer
+			/*ArrayList<TreeMap<Time, ArrayList<ArrayList<DataPoint>>>> timeMapList = routeOptimizer
 					.optimizeRoute();
 			ArrayList<TreeMap<Time, ArrayList<ArrayList<Object>>>> outputTimeMapList = new MapSolutions()
 					.computeRoute(timeMapList);
@@ -77,11 +76,7 @@ public class RouteOptimizationController extends HttpServlet {
 			ArrayList<TreeMap<Time, ArrayList<ArrayList<Object>>>> timeMapListToBeConsumedByPDF = new ArrayList<TreeMap<Time, ArrayList<ArrayList<Object>>>>();
 			timeMapListToBeConsumedByPDF.add(outputInTimeMap);
 			timeMapListToBeConsumedByPDF.add(outputOutTimeMap);
-			new RouteReport().createPDF(timeMapListToBeConsumedByPDF);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			new RouteReport().createPDF(timeMapListToBeConsumedByPDF);*/
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		} catch (Exception e) {

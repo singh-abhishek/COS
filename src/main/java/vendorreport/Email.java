@@ -2,7 +2,6 @@ package vendorreport;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -14,15 +13,18 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import com.ideas.utility.UtilFunctions;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Email {
+	
+	private static final Logger LOGGER = LogManager.getLogger(Email.class);
 
 	private Properties smtpHostProperties;
 
@@ -60,7 +62,7 @@ public class Email {
 			addAttachment(mp, filePath);
 			message.setContent(mp);
 			Transport.send(message);
-			System.out.println("Email sent successfully...");
+			LOGGER.info("Email sent successfully...");
 		} catch (MessagingException ex) {
 			throw new MessagingException("User.ForgotPassword.Email.Failed");
 		} catch (Exception ae) {
@@ -72,8 +74,8 @@ public class Email {
 	
 
 	private void addFilePath(ArrayList<String> filePath) {
-		filePath.add("C:/CabServiceReports/" + new UtilFunctions().generateFileName() + ".xlsx");
-		filePath.add("C:/CabServiceReports/" + new UtilFunctions().generateFileName() + ".pdf");
+		filePath.add("C:/CabServiceReports/" + UtilFunctions.generateFileName() + ".xlsx");
+		//filePath.add("C:/CabServiceReports/" + UtilFunctions.generateFileName() + ".pdf");
 	}
 
 	private void addAttachment(Multipart multipart, ArrayList<String> filePath)

@@ -7,8 +7,6 @@ import java.util.Timer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.ideas.controller.RouteOptimizationController;
-
 public class EmailScheduler {
 
 	private final static Logger LOGGER = LogManager.getLogger(EmailScheduler.class.getName()); 
@@ -20,12 +18,12 @@ public class EmailScheduler {
 		Calendar cal = Calendar.getInstance();
 		Date date = new Date();
 		cal.set(Calendar.HOUR_OF_DAY, 11);
-		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MINUTE, 5);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date am11 = new Date(cal.getTimeInMillis());
 		cal.set(Calendar.HOUR_OF_DAY, 16);
-		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.MINUTE, 5);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date pm4 = new Date(cal.getTimeInMillis());
@@ -47,9 +45,5 @@ public class EmailScheduler {
 				millisInADay);
 	
 	}
-
-//	public static void main(String a[]) throws Exception {
-//		
-//	}
 
 }
