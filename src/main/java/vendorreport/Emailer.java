@@ -1,5 +1,8 @@
 package vendorreport;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.util.Date;
 import java.util.Properties;
@@ -21,6 +24,8 @@ import javax.mail.internet.MimeMultipart;
  * Simple use case for the javax.mail API.
  */
 public final class Emailer {
+	
+	private static final Logger LOGGER = LogManager.getLogger(Emailer.class);
 	private int propertyID;
 	private String smtpHost;
 	private Properties smtpHostProperties = new Properties();
@@ -271,7 +276,7 @@ public final class Emailer {
 				emailBody,
 				aToEmailAddr);
 	} catch (MessagingException e) {
-		e.printStackTrace();
+			LOGGER.error("Error while sending email.", e);
 	}
 	}
 }

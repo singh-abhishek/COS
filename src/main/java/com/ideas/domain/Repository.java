@@ -133,7 +133,7 @@ public class Repository {
 				}
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Error while updating schedule", e);
 		}
 		return true;
 	}
@@ -229,7 +229,7 @@ public class Repository {
 			check.setString(2, slot);
 			success = check.execute();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOGGER.error("Error while removing shift", e);
 		}
 		return true;
 		

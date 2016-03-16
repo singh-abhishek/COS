@@ -78,9 +78,9 @@ public class RouteOptimizationController extends HttpServlet {
 			timeMapListToBeConsumedByPDF.add(outputOutTimeMap);
 			new RouteReport().createPDF(timeMapListToBeConsumedByPDF);*/
 		} catch (NullPointerException e) {
-			e.printStackTrace();
+			LOGGER.error("NullPointerException", e);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in route optimization", e);
 		}
 	}
 

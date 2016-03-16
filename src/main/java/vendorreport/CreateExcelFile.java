@@ -165,7 +165,7 @@ public class CreateExcelFile {
 						}
 
 						catch (NullPointerException e) {
-							e.printStackTrace();
+							LOGGER.error("Error while creating excel file", e);
 						}
 					}
 				}

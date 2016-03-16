@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.TreeMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.joda.time.LocalDate;
 
 import com.ideas.domain.Employee;
@@ -20,6 +22,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class RouteReport {
+	private static final Logger LOGGER = LogManager.getLogger(RouteReport.class);
 
 	public void createPDF(ArrayList<TreeMap<Time,ArrayList<ArrayList<Object>>>> timeMaplist) {
 		
@@ -82,7 +85,7 @@ public class RouteReport {
 			file.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error while creating pdf report file.", e);
 		}
 	}
 }

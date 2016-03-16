@@ -11,6 +11,8 @@ import javax.sql.DataSource;
 
 import org.apache.commons.dbcp.BasicDataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import vendorreport.CreateExcelFile;
 import vendorreport.EmailScheduler;
 
@@ -19,6 +21,8 @@ import com.ideas.routeOptimization.RouteOptimizer;
 
 @WebListener
 public class COSServletContextListener implements ServletContextListener {
+	
+	private static final Logger LOGGER = LogManager.getLogger(COSServletContextListener.class);
 	private Repository repository;
 	private DataSource dataSource;
 	private ControllerHelper helper;
@@ -40,9 +44,9 @@ public class COSServletContextListener implements ServletContextListener {
 			new EmailScheduler().callScheduler(timer);
 
 		} catch (SQLException e1) {
-			e1.printStackTrace();
+			LOGGER.error("Error initializing repository", e1);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in context initialization", e);
 		}
 
 		servletContext.setAttribute("repository", repository);
@@ -68,6 +72,7 @@ public class COSServletContextListener implements ServletContextListener {
 			bds.close();
 			timer.cancel();
 		} catch (SQLException e) {
+			LOGGER.error("Error destroying data source.", e);
 		}
 	}
 

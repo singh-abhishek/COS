@@ -19,7 +19,7 @@ public class EmailDispatcher extends TimerTask {
 		try {
 			toEmail = UtilFunctions.getEmailRecipients();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.error("Error while retrieving email recipients", e);
 		}
 		String subject = "IDeaS Cab Schedule";
 		String body = "IDeaS Cab Schedule";
@@ -36,7 +36,7 @@ public class EmailDispatcher extends TimerTask {
 			Email email = new Email(smtpHostProperties);
 			email.sendEmail(subject, body, toEmail);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.error("Error in sending report", e);
 		}
 	}
 	
