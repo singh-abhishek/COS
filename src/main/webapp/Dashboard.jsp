@@ -193,7 +193,7 @@
 				check = $.fullCalendar.formatDate(start,'yyyy-MM-dd');
 				today = $.fullCalendar.formatDate(new Date(),'yyyy-MM-dd');
 				tomorrow = $.fullCalendar.formatDate(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)),'yyyy-MM-dd');
-				    if((check < today)||(check == today && new Date().getHours()>=11 && new Date().getMinutes() >=6))
+				    if((check < today)||(check == today && new Date().getHours()>=11))
 				    {
 				    	$("#wrongDateSelectionModal").modal("show");
 				    }
