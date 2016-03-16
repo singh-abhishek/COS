@@ -26,7 +26,7 @@ public class EmailDispatcher extends TimerTask {
 
 		try {
 			LOGGER.info("Creating report and sending...");
-			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:9080/COS/routeOptimize").openConnection();
+			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8080/COS/routeOptimize").openConnection();
 			con.setRequestMethod("GET");
 			con.connect();
 			con.getResponseCode();
