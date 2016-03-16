@@ -18,12 +18,12 @@ public class EmailScheduler {
 		Calendar cal = Calendar.getInstance();
 		Date date = new Date();
 		cal.set(Calendar.HOUR_OF_DAY, 11);
-		cal.set(Calendar.MINUTE, 5);
+		cal.set(Calendar.MINUTE, 10);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date am11 = new Date(cal.getTimeInMillis());
 		cal.set(Calendar.HOUR_OF_DAY, 16);
-		cal.set(Calendar.MINUTE, 5);
+		cal.set(Calendar.MINUTE, 10);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date pm4 = new Date(cal.getTimeInMillis());
