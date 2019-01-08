@@ -19,7 +19,7 @@
 	</context-param>
 	<context-param>
 		<param-name>password</param-name>
-		<param-value>root</param-value>
+		<param-value>cos@ideas</param-value>
 	</context-param>
 	<filter>
 		<filter-name>SecurityFilter</filter-name>

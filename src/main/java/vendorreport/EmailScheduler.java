@@ -18,26 +18,38 @@ public class EmailScheduler {
 		Calendar cal = Calendar.getInstance();
 		Date date = new Date();
 		cal.set(Calendar.HOUR_OF_DAY, 11);
+		cal.set(Calendar.MINUTE, 05);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		Date am1105 = new Date(cal.getTimeInMillis());
+		cal.set(Calendar.HOUR_OF_DAY, 11);
 		cal.set(Calendar.MINUTE, 10);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-		Date am11 = new Date(cal.getTimeInMillis());
+		Date am1110 = new Date(cal.getTimeInMillis());
 		cal.set(Calendar.HOUR_OF_DAY, 16);
 		cal.set(Calendar.MINUTE, 10);
 		cal.set(Calendar.SECOND, 0);
 		cal.set(Calendar.MILLISECOND, 0);
 		Date pm4 = new Date(cal.getTimeInMillis());
 		LOGGER.info("Will send morning roster in: "
-				+ (millisInADay + am11.getTime() - date.getTime())
+				+ (millisInADay + am1105.getTime() - date.getTime())
+				% millisInADay / 60000 + "mins");
+		LOGGER.info("Will send morning roster in: "
+				+ (millisInADay + am1110.getTime() - date.getTime())
 				% millisInADay / 60000 + "mins");
 		LOGGER.info("Will send evening roster in: "
 				+ (millisInADay + pm4.getTime() - date.getTime())
 				% millisInADay / 60000 + "mins");
-		
-				
+
 		timer.scheduleAtFixedRate(
 				new EmailDispatcher(),
-				(millisInADay + am11.getTime() - date.getTime()) % millisInADay,
+				(millisInADay + am1105.getTime() - date.getTime()) % millisInADay,
+				millisInADay);
+
+		timer.scheduleAtFixedRate(
+				new EmailDispatcher(),
+				(millisInADay + am1110.getTime() - date.getTime()) % millisInADay,
 				millisInADay);
 		
 		timer.scheduleAtFixedRate(new EmailDispatcher(),
