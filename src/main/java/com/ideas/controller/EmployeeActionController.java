@@ -35,8 +35,10 @@ public class EmployeeActionController extends HttpServlet {
         String username = request.getRemoteUser().substring(4);
         String address = request.getParameter("userAddress");
         String name = request.getParameter("name");
-        double latitude = Double.parseDouble(request.getParameter("latitude"));
-        double longitude = Double.parseDouble(request.getParameter("longitude"));
+        /*double latitude = Double.parseDouble(request.getParameter("latitude"));
+        double longitude = Double.parseDouble(request.getParameter("longitude"));*/
+        double latitude = Double.valueOf(0);
+        double longitude = Double.valueOf(0);
         String mobile = request.getParameter("mobile");
         Address employeeAddress = new Address(latitude, longitude, address);
         Employee employeeDetails = new Employee(username, name, mobile, employeeAddress);

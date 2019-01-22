@@ -1,23 +1,19 @@
 package com.ideas.controller;
 
-import java.io.IOException;
+import com.ideas.domain.Address;
+import com.ideas.domain.Employee;
+import com.ideas.domain.Repository;
+import com.ideas.sso.ActiveDirectoryUserInfo;
+import waffle.windows.auth.IWindowsAccount;
+import waffle.windows.auth.impl.WindowsAuthProviderImpl;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import waffle.windows.auth.IWindowsAccount;
-import waffle.windows.auth.impl.WindowsAuthProviderImpl;
-
-import com.ideas.domain.Address;
-import com.ideas.domain.Repository;
-import com.ideas.domain.Employee;
-import com.ideas.sso.ActiveDirectoryUserInfo;
-import com.ideas.sso.AuthenticationError;
+import java.io.IOException;
 
 @WebServlet(urlPatterns = "/authenticate/*")
 public class AuthenticationController extends HttpServlet {
@@ -39,7 +35,7 @@ public class AuthenticationController extends HttpServlet {
 		if (repository.isEmployeeAdmin(username))
 			path = "/admin";
 		else
-			path = repository.isEmployeeRegistered(username) ? "/dashboard" : "Maps.jsp";
+			path = repository.isEmployeeRegistered(username) ? "/dashboard" : "EmployeeDetails.jsp";
 		helper.sendRequest(request, response, path);
 	}
 
