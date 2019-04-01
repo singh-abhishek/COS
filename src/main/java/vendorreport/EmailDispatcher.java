@@ -29,7 +29,8 @@ public class EmailDispatcher extends TimerTask {
 			HttpURLConnection con = (HttpURLConnection) new URL("http://localhost:8080/COS/routeOptimize").openConnection();
 			con.setRequestMethod("GET");
 			con.connect();
-			con.getResponseCode();
+			Integer responseCode = con.getResponseCode();
+			LOGGER.info("Got response code: {} for excel file creation.", responseCode);
 			Properties smtpHostProperties = new Properties();
 			String smtpHost = "mailhost.fyi.sas.com";
 			smtpHostProperties.put("mail.smtp.host", smtpHost);
